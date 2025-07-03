@@ -56,7 +56,7 @@ const EventAnomaly = () => {
       end: range.end,
       event: selectedEvent
     });
-    fetch(`http://localhost:4000/api/anomaly?${params.toString()}`)
+    fetch(`/api/anomaly?${params.toString()}`)
       .then(res => res.json())
       .then(json => {
         setAnomalyData(json.data?.events || []);

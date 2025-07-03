@@ -21,7 +21,7 @@ function MainContent() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:4000/api/dashboard?start=${dateRange.start}&end=${dateRange.end}`)
+    fetch(`/api/dashboard?start=${dateRange.start}&end=${dateRange.end}`)
       .then(res => res.json())
       .then(data => {
         setMetrics(data.metrics);
@@ -40,7 +40,7 @@ function MainContent() {
   if (!metrics) return <div>Aucune donnée à afficher.</div>;
 
   return (
-    <div className="main-content" style={{ position: 'relative', background: '#f6f3fa', minHeight: '100vh', paddingBottom: 40 }}>
+    <div className="main-content" style={{ position: 'relative', minHeight: '100vh', paddingBottom: 40 }}>
       {/* Header + Date Selector */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '32px 0 0 0' }}>
         <div>
@@ -113,10 +113,11 @@ function MainContent() {
 
       {/* Statistiques par événements */}
       <div className="content-section" style={{ marginTop: 36 }}>
-        <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+        
+        <div className="event-stats-table-wrapper">
+          <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
           <h2 style={{ fontFamily: 'Bebas Neue, cursive', fontSize: '1.18rem', fontWeight: 700, color: '#2d204a', margin: 0 }}>Statistiques par événements</h2>
         </div>
-        <div className="event-stats-table-wrapper">
           <table className="event-stats-table">
             <thead>
               <tr>
@@ -277,7 +278,7 @@ function MainContent() {
           margin: 0;
         }
         .event-stats-table-wrapper {
-          background: #fff;
+          background: rgb(243, 241, 247);
           border-radius: 16px;
           box-shadow: 0 2px 12px rgba(30, 60, 90, 0.06);
           padding: 24px;
@@ -441,7 +442,7 @@ function MainContent() {
           color: #E1D5F5;
         }
         [data-theme="dark"] .stat-card {
-          background: #231a3a;
+          background: #675191;
           color: #E1D5F5;
           box-shadow: 0 2px 12px rgba(30, 60, 90, 0.12);
           border-top-color: #7c3aed;
@@ -468,7 +469,7 @@ function MainContent() {
           box-shadow: 0 2px 8px rgba(103, 58, 183, 0.15);
         }
         [data-theme="dark"] .event-stats-table-wrapper {
-          background: #231a3a;
+          background: rgb(29, 10, 65) !important;
           box-shadow: 0 2px 12px rgba(103, 58, 183, 0.12);
         }
         [data-theme="dark"] .event-stats-table th {
