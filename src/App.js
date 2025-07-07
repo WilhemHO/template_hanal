@@ -5,6 +5,8 @@ import Sidebar from './components/Sidebar';
 import MainContent from './components/MainContent';
 import RealtimeMonitoring from './components/RealtimeMonitoring';
 import EventAnomaly from './components/EventAnomaly';
+import TrackingPlanHealth from './components/TrackingPlanHealth';
+import Setting from './components/Setting';
 import './styles.css';
 
 function App() {
@@ -45,6 +47,8 @@ function AppLayout({ darkMode, toggleDarkMode }) {
         <Route path="/" element={<MainContent />} />
         <Route path="/realtime-monitoring" element={<RealtimeMonitoring />} />
         <Route path="/event-anomaly" element={<EventAnomaly />} />
+        <Route path="/tracking-plan-health" element={<TrackingPlanHealth />} />
+        <Route path="/setting" element={<Setting />} />
       </Routes>
     </div>
   );
