@@ -99,29 +99,28 @@ const TrackingPlanHealth = () => {
     labels: filledChartData.map(d => d.date?.value),
     datasets: [
       {
-        type: 'bar',
         label: 'Total events',
         data: filledChartData.map(d => d.total_events),
-        backgroundColor: 'rgba(80, 70, 200, 0.6)',
-        borderRadius: 6,
+        borderColor: '#a78bfa',
+        backgroundColor: 'rgba(167, 139, 250, 0.15)',
+        tension: 0.4,
+        fill: true,
+        pointBackgroundColor: '#a78bfa',
+        pointRadius: 5,
         yAxisID: 'y',
-        barPercentage: 0.7,
-        categoryPercentage: 0.7,
+        type: 'line',
       },
       {
-        type: 'line',
         label: '% Events With missing Parameters',
         data: filledChartData.map(d => d.pct_events_with_missing_params),
         borderColor: '#b97be6',
-        backgroundColor: '#b97be6',
-        yAxisID: 'y1',
-        tension: 0.3,
+        backgroundColor: 'rgba(185, 123, 230, 0.15)',
+        tension: 0.4,
         fill: false,
-        pointRadius: 6,
-        pointBackgroundColor: '#fff',
-        pointBorderColor: '#b97be6',
-        pointHoverRadius: 8,
-        pointStyle: 'circle',
+        pointBackgroundColor: '#b97be6',
+        pointRadius: 5,
+        yAxisID: 'y1',
+        type: 'line',
       }
     ]
   };
@@ -137,9 +136,7 @@ const TrackingPlanHealth = () => {
           font: { size: 18, family: 'inherit', weight: 'bold' }
         }
       },
-      title: {
-        display: false
-      },
+      title: { display: false },
       tooltip: {
         mode: 'index',
         intersect: false,
@@ -184,8 +181,6 @@ const TrackingPlanHealth = () => {
           callback: value => value >= 1000 ? `${value/1000}k` : value
         },
         grid: { color: '#eee' },
-        suggestedMax: maxTotalEvents > 200000 ? Math.ceil(maxTotalEvents * 1.1 / 10000) * 10000 : undefined,
-        max: maxTotalEvents > 200000 ? Math.ceil(maxTotalEvents * 1.1 / 10000) * 10000 : undefined,
       },
       y1: {
         type: 'linear',
@@ -199,7 +194,7 @@ const TrackingPlanHealth = () => {
           font: { size: 14 },
           callback: value => `${value}%`
         },
-        grid: { drawOnChartArea: false }
+        grid: { drawOnChartArea: false },
       }
     }
   };
