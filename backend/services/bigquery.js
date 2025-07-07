@@ -1,8 +1,20 @@
-const { BigQuery } = require('@google-cloud/bigquery');
-const path = require('path');
+import { BigQuery } from '@google-cloud/bigquery';
+import fs from 'fs';
+import path from 'path';
 
-// Chemin vers le credentials.json (placer le fichier à la racine du dossier backend)
-const keyFilename = path.join(__dirname, '../credentials.json');
+let keyFilename;
+
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
+  // Sur Vercel, écrire le credentials dans /tmp
+  const credsPath = '/tmp/gcp-creds.json';
+  if (!fs.existsSync(credsPath)) {
+    fs.writeFileSync(credsPath, process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+  }
+  keyFilename = credsPath;
+} else {
+  // Fallback local/dev
+  keyFilename = path.join(__dirname, '../credentials.json');
+}
 
 const bigquery = new BigQuery({ keyFilename });
 
@@ -11,7 +23,7 @@ const bigquery = new BigQuery({ keyFilename });
  * @param {string} query - La requête SQL à exécuter
  * @returns {Promise<Array>} - Les résultats de la requête
  */
-async function runQuery(query) {
+export async function runQuery(query) {
   const [rows] = await bigquery.query({ query });
   return rows;
 }
