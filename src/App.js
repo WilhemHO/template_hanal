@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Sidebar from './components/Sidebar';
 import MainContent from './components/MainContent';
 import RealtimeMonitoring from './components/RealtimeMonitoring';
+import EventAnomaly from './components/EventAnomaly';
 import './styles.css';
 
 function App() {
@@ -42,7 +43,8 @@ function AppLayout({ darkMode, toggleDarkMode }) {
       {!isLoginPage && <Sidebar />}
       <Routes>
         <Route path="/" element={<MainContent />} />
-        <Route path="/realtime" element={<RealtimeMonitoring />} />
+        <Route path="/realtime-monitoring" element={<RealtimeMonitoring />} />
+        <Route path="/event-anomaly" element={<EventAnomaly />} />
       </Routes>
     </div>
   );
