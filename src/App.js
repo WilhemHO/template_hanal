@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import MainContent from './components/MainContent';
+import RealtimeMonitoring from './components/RealtimeMonitoring';
 import './styles.css';
 
 function App() {
@@ -41,6 +42,7 @@ function AppLayout({ darkMode, toggleDarkMode }) {
       {!isLoginPage && <Sidebar />}
       <Routes>
         <Route path="/" element={<MainContent />} />
+        <Route path="/realtime" element={<RealtimeMonitoring />} />
       </Routes>
     </div>
   );
