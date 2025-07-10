@@ -45,6 +45,19 @@ const TrackingPlanHealth = () => {
   const [stats, setStats] = useState(null);
   const [pagination, setPagination] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  // Ajout : état pour le mode sombre
+  const [isDarkMode, setIsDarkMode] = useState(() =>
+    document.documentElement.getAttribute('data-theme') === 'dark'
+  );
+
+  // Ajout : écoute les changements de data-theme
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDarkMode(document.documentElement.getAttribute('data-theme') === 'dark');
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!dateRange.start || !dateRange.end) return;
@@ -125,6 +138,12 @@ const TrackingPlanHealth = () => {
     ]
   };
 
+  // Couleurs dynamiques selon le mode
+  const textColor = isDarkMode ? '#E1D5F5' : '#2d225a';
+  const legendColor = isDarkMode ? '#fff' : '#2d225a';
+  const y1TickColor = isDarkMode ? '#a78bfa' : '#b97be6';
+  const gridColor = isDarkMode ? '#675191' : '#eee';
+
   const temporalChartOptions = {
     responsive: true,
     plugins: {
@@ -132,7 +151,7 @@ const TrackingPlanHealth = () => {
         display: true,
         position: 'top',
         labels: {
-          color: '#2d225a',
+          color: legendColor,
           font: { size: 18, family: 'inherit', weight: 'bold' }
         }
       },
@@ -155,7 +174,7 @@ const TrackingPlanHealth = () => {
       x: {
         title: { display: false },
         ticks: {
-          color: '#2d225a',
+          color: textColor,
           font: { size: 14 },
           maxRotation: 45,
           minRotation: 45,
@@ -176,11 +195,11 @@ const TrackingPlanHealth = () => {
         position: 'left',
         title: { display: false },
         ticks: {
-          color: '#2d225a',
+          color: textColor,
           font: { size: 14 },
           callback: value => value >= 1000 ? `${value/1000}k` : value
         },
-        grid: { color: '#eee' },
+        grid: { color: gridColor },
       },
       y1: {
         type: 'linear',
@@ -190,7 +209,7 @@ const TrackingPlanHealth = () => {
         max: 100,
         title: { display: false },
         ticks: {
-          color: '#b97be6',
+          color: y1TickColor,
           font: { size: 14 },
           callback: value => `${value}%`
         },
