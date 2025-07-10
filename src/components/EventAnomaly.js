@@ -135,23 +135,23 @@ const EventAnomaly = () => {
       <div className="section">
         <h2>Anomaly Detection</h2>
         <div className="metrics-grid">
-          <div className="metric-card" style={{ background: '#f4f6ff' }}>
-            <div style={{ fontWeight: 'bold', color: '#4b2996', marginBottom: 8 }}>ÉVÉNEMENTS ANALYSÉS</div>
-            <div style={{ fontSize: 36, fontWeight: 'bold', color: '#4b2996' }}>{stats.totalEvents}</div>
+          <div className="metric-card">
+            <div className="metric-title">ÉVÉNEMENTS ANALYSÉS</div>
+            <div className="metric-value">{stats.totalEvents}</div>
           </div>
-          <div className="metric-card" style={{ background: '#f4f6ff' }}>
-            <div style={{ fontWeight: 'bold', color: '#4b2996', marginBottom: 8 }}>ÉVÉNEMENTS NORMAUX</div>
-            <div style={{ fontSize: 36, fontWeight: 'bold', color: '#4b2996' }}>{stats.normalEvents}</div>
-            <div style={{ color: '#4b2996', fontSize: 14 }}>{normalPercent}% du total</div>
+          <div className="metric-card">
+            <div className="metric-title">ÉVÉNEMENTS NORMAUX</div>
+            <div className="metric-value">{stats.normalEvents}</div>
+            <div className="metric-subvalue">{normalPercent}% du total</div>
           </div>
-          <div className="metric-card" style={{ background: '#f4f6ff' }}>
-            <div style={{ fontWeight: 'bold', color: '#4b2996', marginBottom: 8 }}>ANOMALIES DÉTECTÉES</div>
-            <div style={{ fontSize: 36, fontWeight: 'bold', color: '#4b2996' }}>{stats.totalAnomalies}</div>
-            <div style={{ color: '#4b2996', fontSize: 14 }}>{anomalyPercent}% du total</div>
+          <div className="metric-card">
+            <div className="metric-title">ANOMALIES DÉTECTÉES</div>
+            <div className="metric-value">{stats.totalAnomalies}</div>
+            <div className="metric-subvalue">{anomalyPercent}% du total</div>
           </div>
-          <div className="metric-card" style={{ background: '#f8f4ff' }}>
-            <div style={{ fontWeight: 'bold', color: '#4b2996', marginBottom: 8 }}>TYPES D'ÉVÉNEMENTS</div>
-            <div style={{ fontSize: 36, fontWeight: 'bold', color: '#4b2996' }}>{stats.uniqueEventTypes}</div>
+          <div className="metric-card">
+            <div className="metric-title">TYPES D'ÉVÉNEMENTS</div>
+            <div className="metric-value">{stats.uniqueEventTypes}</div>
           </div>
         </div>
       </div>
