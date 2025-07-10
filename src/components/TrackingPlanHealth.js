@@ -106,7 +106,7 @@ const TrackingPlanHealth = () => {
         tension: 0.4,
         fill: true,
         pointBackgroundColor: '#a78bfa',
-        pointRadius: 5,
+        pointRadius: 0,
         yAxisID: 'y',
         type: 'line',
       },
@@ -118,7 +118,7 @@ const TrackingPlanHealth = () => {
         tension: 0.4,
         fill: false,
         pointBackgroundColor: '#b97be6',
-        pointRadius: 5,
+        pointRadius: 0,
         yAxisID: 'y1',
         type: 'line',
       }
