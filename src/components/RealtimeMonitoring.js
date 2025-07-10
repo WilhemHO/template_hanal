@@ -11,7 +11,7 @@ const RealtimeMonitoring = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/realtime");
+        const res = await fetch("/api/realtime");
         const json = await res.json();
         if (!json.success) throw new Error(json.error || "Erreur API");
         setData(json.data);
