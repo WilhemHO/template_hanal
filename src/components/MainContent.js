@@ -56,30 +56,6 @@ function MainContent() {
         </div>
       </div>
 
-      {/* Section humeur */}
-      <div style={{ margin: '32px 0 0 0', display: 'flex', alignItems: 'center', gap: 18 }}>
-        <h2 style={{ fontFamily: 'Bebas Neue, cursive', fontSize: '1.35rem', fontWeight: 700, color: '#2d204a', margin: 0 }}>Comment vas-tu aujourd'hui ?</h2>
-        {['🙂', '😐', '🙁'].map((emoji, idx) => (
-          <span
-            key={emoji}
-            className={`mood-emoji${selectedMood === idx ? ' selected' : ''}`}
-            style={{
-              fontSize: 28,
-              marginLeft: idx === 0 ? 8 : 2,
-              cursor: 'pointer',
-              transition: 'transform 0.15s, box-shadow 0.15s, background 0.15s',
-              background: selectedMood === idx ? '#ede9fe' : 'transparent',
-              borderRadius: '50%',
-              boxShadow: selectedMood === idx ? '0 2px 8px #b197d2' : 'none',
-              transform: selectedMood === idx ? 'scale(1.18)' : 'scale(1)'
-            }}
-            onClick={() => setSelectedMood(idx)}
-          >
-            {emoji}
-          </span>
-        ))}
-      </div>
-
       {/* Cartes résumé */}
       <div className="stats-summary-cards" style={{ gridTemplateColumns: 'repeat(5, 1fr)', marginTop: 24, gap: 24 }}>
         <div className="stat-card success">
@@ -121,11 +97,11 @@ function MainContent() {
           <table className="event-stats-table">
             <thead>
               <tr>
-                <th>EVENT</th>
-                <th>HITS</th>
-                <th>HITS WITH ERRORS</th>
-                <th>%ERRORS</th>
-                <th>DATA QUALITY</th>
+                <th className="align-left">EVENT</th>
+                <th className="align-right">HITS</th>
+                <th className="align-right">HITS WITH ERRORS</th>
+                <th className="align-right">%ERRORS</th>
+                <th className="align-left">DATA QUALITY</th>
               </tr>
             </thead>
             <tbody>
@@ -147,6 +123,7 @@ function MainContent() {
 
       {/* Analyse des paramètres */}
       <div className="content-section" style={{ marginTop: 36 }}>
+      <div className="event-stats-table-wrapper">
         <div className="section-header" style={{ marginBottom: 8 }}>
           <h2 style={{ fontFamily: 'Bebas Neue, cursive', fontSize: '1.18rem', fontWeight: 700, color: '#2d204a', margin: 0 }}>Analyse des paramètres</h2>
         </div>
@@ -156,7 +133,9 @@ function MainContent() {
               style={{ borderLeft: `6px solid ${param.status === 'Critique' ? '#ef4444' : param.status === 'Attention' ? '#f59e42' : param.status === 'Warning' ? '#fbbf24' : '#10b981'}` }}>
               <div className="param-main">
                 <span className={`param-name ${param.status.toLowerCase()}`}>{param.param_name}</span>
-                <span className={`param-type-badge ${param.param_type.toLowerCase()}`}>{param.param_type === 'User' ? 'User' : 'Event'}</span>
+                <span className={`param-type-badge ${param.param_name === 'user_id' ? 'User' : (param.param_type === 'User' ? 'User' : 'Event')}`}>
+                  {param.param_name === 'user_id' ? 'User' : (param.param_type === 'User' ? 'User' : 'Event')}
+                </span>
               </div>
               <div className="param-bar-container">
                 <div className="param-bar-bg">
@@ -172,6 +151,7 @@ function MainContent() {
               <div className={`param-status-badge ${param.status.toLowerCase()}`}>{param.status}</div>
             </div>
           ))}
+        </div>
         </div>
       </div>
 
@@ -468,30 +448,41 @@ function MainContent() {
           color: #E1D5F5;
           box-shadow: 0 2px 8px rgba(103, 58, 183, 0.15);
         }
+        [data-theme="dark"] .section-header h2 {
+          color: #fff !important;
+          font-size: 1.35rem;
+        }
         [data-theme="dark"] .event-stats-table-wrapper {
-          background: rgb(29, 10, 65) !important;
-          box-shadow: 0 2px 12px rgba(103, 58, 183, 0.12);
+          background: #4c386f !important;
+        }
+        [data-theme="dark"] .event-stats-table {
+          background: #634e8b;
         }
         [data-theme="dark"] .event-stats-table th {
-          background: #2d204a;
-          color: #B39DDB;
-          border-bottom: 2px solid #3b2c5a;
+          background: #634e8b;
+          color: #fff;
+          border-bottom: 2px solid #b09ed2;
         }
         [data-theme="dark"] .event-stats-table td {
-          color: #E1D5F5;
+          color: #fff;
         }
-        [data-theme="dark"] .event-stats-table tbody tr {
-          border-bottom: 1px solid #3b2c5a;
+        [data-theme="dark"] .event-stats-table tbody tr.even-row {
+          background: #b09ed2;
+          color: #181028;
         }
         [data-theme="dark"] .event-stats-table tbody tr:hover {
-          background: #2d204a;
+          background: #b09ed2;
+          color: #181028;
         }
         [data-theme="dark"] .event-stats-table .event-name {
-          color: #a5b4fc;
+          color: #fff;
+        }
+        [data-theme="dark"] .event-stats-table .number {
+          color: #fff;
         }
         [data-theme="dark"] .quality-badge {
-          background: #2d204a;
-          color: #B39DDB;
+          background: #b09ed2;
+          color: #181028;
         }
         [data-theme="dark"] .quality-badge.good {
           background: #134e4a;
@@ -528,6 +519,21 @@ function MainContent() {
         }
         .mood-emoji {
           transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+        }
+        .event-stats-table th.align-left {
+          text-align: left;
+        }
+        .event-stats-table th.align-right {
+          text-align: right;
+        }
+        [data-theme="dark"] .main-content h1 {
+          color: #fff !important;
+        }
+        [data-theme="dark"] .main-content > div > div {
+          color: #fff !important;
+        }
+        [data-theme="dark"] .main-content h2 {
+          color: #fff !important;
         }
       `}</style>
     </div>

@@ -11,7 +11,7 @@ const RealtimeMonitoring = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/realtime");
+        const res = await fetch("http://localhost:4000/api/realtime");
         const json = await res.json();
         if (!json.success) throw new Error(json.error || "Erreur API");
         setData(json.data);
@@ -77,24 +77,36 @@ const RealtimeMonitoring = () => {
 
   return (
     <div className="dashboard" style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <h1 className="dashboard-title" style={{ margin: 0 }}>Realtime Monitoring</h1>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <h1 className="dashboard-title" style={{ margin: 0 }}>Realtime Monitoring</h1>
+          <button
+            className="time-icon-btn"
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+            onClick={() => setShowLastUpdated((v) => !v)}
+            title="Voir la dernière mise à jour"
+          >
+            {/* Horloge SVG */}
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </button>
+        </div>
         <button
-          className="time-icon-btn"
-          style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
-          onClick={() => setShowLastUpdated((v) => !v)}
-          title="Voir la dernière mise à jour"
+          className="refresh-btn"
+          style={{ background: "#f5f5f5", border: "1px solid #ccc", borderRadius: 4, cursor: "pointer", padding: "6px 16px", fontWeight: 500, fontSize: 15 }}
+          onClick={() => window.location.reload()}
+          title="Actualiser la page"
         >
-          {/* Horloge SVG */}
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
+          Actualisation
         </button>
       </div>
       {showLastUpdated && lastUpdated && (
         <div className="last-updated" style={{ marginTop: 4, color: '#555', fontSize: 14 }}>
           Dernière actualisation : {lastUpdated.toLocaleString()}
+          <br />
+          Si il est avant 12h alors on récupère les données de J-1 et J. Si il est après 12h alors on récupère uniquement les données de J.
         </div>
       )}
 
