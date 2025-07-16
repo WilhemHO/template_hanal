@@ -418,7 +418,7 @@ function MainContent() {
         .param-status-badge.warning { background: #fbbf24; color: #92400e; }
         .param-status-badge.bon { background: #10b981; }
         [data-theme="dark"] .main-content {
-          background: #33085c;
+          background: #1d0a41;
           color: #E1D5F5;
         }
         [data-theme="dark"] .stat-card {

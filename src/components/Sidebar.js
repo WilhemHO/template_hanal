@@ -58,7 +58,7 @@ function Sidebar({ darkMode, toggleDarkMode }) {
             </div>
           </div>
           <button onClick={toggleDarkMode} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: 16, fontSize: 22 }} aria-label="Toggle theme">
-            {darkMode ? <FaSun color="#FFD600" /> : <FaMoon color="#888" />}
+            {darkMode ? <FaSun className="sidebar-sunmoon" color="#FFD600" /> : <FaMoon color="#888" />}
           </button>
         </div>
         
