@@ -207,8 +207,9 @@ color: #fff !important;
 color: #fff !important;
 }
 
-[data-theme="dark"] svg,
-[data-theme="dark"] svg * {
-stroke: #fff !important;
-fill: #1a0033;
+[data-theme="dark"] svg:not(.sidebar-sunmoon),
+[data-theme="dark"] svg:not(.sidebar-sunmoon) * {
+  stroke: #fff !important;
+  fill: #1a0033;
 }
+  
