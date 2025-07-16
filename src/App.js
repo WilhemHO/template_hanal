@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
@@ -52,7 +51,7 @@ function AppLayout({ darkMode, toggleDarkMode }) {
   return (
     <div className="app">
       {/* Sidebar seulement si pas sur /login */}
-      {!isLoginPage && <Sidebar />}
+      {!isLoginPage && <Sidebar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
       <Routes>
         <Route path="/login" element={<LoginWithRedirect />} />
         <Route path="/" element={<RequireAuth><MainContent /></RequireAuth>} />

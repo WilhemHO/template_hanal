@@ -221,7 +221,7 @@ function MainContent() {
         .stat-card.highlight { border-top: 5px solid #817EE1; }
         .stat-card.info { border-top: 5px solid #817EE1; }
         .trend-indicator.negative {
-          background: #fee2e2;
+          background:rgb(184, 12, 12);
           color: #ef4444;
           border-radius: 12px;
           padding: 2px 10px;
@@ -418,7 +418,7 @@ function MainContent() {
         .param-status-badge.warning { background: #fbbf24; color: #92400e; }
         .param-status-badge.bon { background: #10b981; }
         [data-theme="dark"] .main-content {
-          background: #181028;
+          background: #33085c;
           color: #E1D5F5;
         }
         [data-theme="dark"] .stat-card {
@@ -436,7 +436,7 @@ function MainContent() {
           min-height: 50px;
         }
         [data-theme="dark"] .stat-card-value {
-          color: #E1D5F5;
+          color:rgb(255, 255, 255);
           font-size: 1.7rem;
           font-variant-numeric: tabular-nums;
         }
