@@ -222,7 +222,7 @@ function MainContent() {
         .stat-card.info { border-top: 5px solid #817EE1; }
         .trend-indicator.negative {
           background:rgb(184, 12, 12);
-          color: #ef4444;
+          color:rgb(255, 255, 255);
           border-radius: 12px;
           padding: 2px 10px;
           font-size: 0.95rem;

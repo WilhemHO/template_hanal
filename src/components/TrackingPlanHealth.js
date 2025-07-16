@@ -63,7 +63,7 @@ const TrackingPlanHealth = () => {
     if (!dateRange.start || !dateRange.end) return;
     setLoading(true);
     setError(null);
-    fetch(`/api/tracking?start=${dateRange.start}&end=${dateRange.end}`)
+    fetch(`/api/tracking?start=${dateRange.start}&end=${dateRange.end}&page=${currentPage}`)
       .then(res => {
         if (!res.ok) throw new Error('Erreur lors du chargement des données');
         return res.json();

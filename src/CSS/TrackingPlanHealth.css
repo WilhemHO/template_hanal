@@ -199,7 +199,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Dark mode */
 [data-theme="dark"] .tracking-root {
-  background: #23143a !important;
+  background: #33085c !important;
   color: #E1D5F5 !important;
 }
 [data-theme="dark"] .tracking-header h1 {
@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #a78bfa !important;
 }
 [data-theme="dark"] .tracking-global-stats {
-  background: #3b2562 !important;
+  background: #33085c !important;
   color: #E1D5F5 !important;
 }
 [data-theme="dark"] .tracking-global-stats span {
