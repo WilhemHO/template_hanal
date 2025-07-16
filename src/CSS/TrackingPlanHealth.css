@@ -199,7 +199,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Dark mode */
 [data-theme="dark"] .tracking-root {
-  background: #33085c !important;
+  background: #1d0a41 !important;
   color: #E1D5F5 !important;
 }
 [data-theme="dark"] .tracking-header h1 {
