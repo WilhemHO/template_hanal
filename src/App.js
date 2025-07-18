@@ -8,6 +8,7 @@ import TrackingPlanHealth from './components/TrackingPlanHealth';
 import Setting from './components/Setting';
 import Login from './components/Login';
 import './styles.css';
+import { CacheProvider } from './components/CacheContext';
 
 // Composant de protection des routes
 function RequireAuth({ children }) {
@@ -39,9 +40,11 @@ function App() {
   };
 
   return (
-    <Router>
-      <AppLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-    </Router>
+    <CacheProvider>
+      <Router>
+        <AppLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      </Router>
+    </CacheProvider>
   );
 }
 

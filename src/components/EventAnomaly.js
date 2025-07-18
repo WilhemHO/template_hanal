@@ -12,6 +12,7 @@ import {
   Legend
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { useCache } from "./CacheContext";
 
 ChartJS.register(
   CategoryScale,
@@ -46,9 +47,21 @@ const EventAnomaly = () => {
   const [availableEvents, setAvailableEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState('all');
   const [chartData, setChartData] = useState([]);
+  const { getCacheData, setCacheData } = useCache();
 
   useEffect(() => {
     setLoading(true);
+    const cacheKey = `anomalyData_${page}_${range.start}_${range.end}_${selectedEvent}`;
+    const cached = getCacheData(cacheKey);
+    if (cached) {
+      setAnomalyData(cached.anomalyData);
+      setTotalPages(cached.totalPages);
+      setStats(cached.stats);
+      setAvailableEvents(cached.availableEvents);
+      setChartData(cached.chartData);
+      setLoading(false);
+      return;
+    }
     const params = new URLSearchParams({
       page: page.toString(),
       pageSize: PAGE_SIZE.toString(),
@@ -64,6 +77,13 @@ const EventAnomaly = () => {
         setStats(json.data?.stats || { totalEvents: 0, normalEvents: 0, totalAnomalies: 0, uniqueEventTypes: 0 });
         setAvailableEvents(json.data?.availableEvents || []);
         setChartData(json.data?.chartData || []);
+        setCacheData(cacheKey, {
+          anomalyData: json.data?.events || [],
+          totalPages: json.data?.pagination?.totalPages || 1,
+          stats: json.data?.stats || { totalEvents: 0, normalEvents: 0, totalAnomalies: 0, uniqueEventTypes: 0 },
+          availableEvents: json.data?.availableEvents || [],
+          chartData: json.data?.chartData || []
+        });
         setLoading(false);
       })
       .catch(() => {

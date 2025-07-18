@@ -3,6 +3,7 @@ import { Chart } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 import '../CSS/TrackingPlanHealth.css';
 import DateRangeDropdown from './DateRangeDropdown';
+import { useCache } from "./CacheContext";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend);
 
@@ -45,12 +46,10 @@ const TrackingPlanHealth = () => {
   const [stats, setStats] = useState(null);
   const [pagination, setPagination] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  // Ajout : état pour le mode sombre
+  // Mode sombre (garde la logique précédente)
   const [isDarkMode, setIsDarkMode] = useState(() =>
     document.documentElement.getAttribute('data-theme') === 'dark'
   );
-
-  // Ajout : écoute les changements de data-theme
   useEffect(() => {
     const observer = new MutationObserver(() => {
       setIsDarkMode(document.documentElement.getAttribute('data-theme') === 'dark');
@@ -58,11 +57,24 @@ const TrackingPlanHealth = () => {
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     return () => observer.disconnect();
   }, []);
+  // Ajout cache
+  const { getCacheData, setCacheData } = useCache();
 
   useEffect(() => {
     if (!dateRange.start || !dateRange.end) return;
     setLoading(true);
     setError(null);
+    const cacheKey = `trackingData_${dateRange.start}_${dateRange.end}_${currentPage}`;
+    const cached = getCacheData(cacheKey);
+    if (cached) {
+      setEventErrors(cached.eventErrors);
+      setErrorDetails(cached.errorDetails);
+      setChartData(cached.chartData);
+      setStats(cached.stats);
+      setPagination(cached.pagination);
+      setLoading(false);
+      return;
+    }
     fetch(`/api/tracking?start=${dateRange.start}&end=${dateRange.end}&page=${currentPage}`)
       .then(res => {
         if (!res.ok) throw new Error('Erreur lors du chargement des données');
@@ -74,6 +86,13 @@ const TrackingPlanHealth = () => {
         setChartData((data.data && data.data.chartData) || []);
         setStats(data.data && data.data.stats);
         setPagination(data.data && data.data.pagination);
+        setCacheData(cacheKey, {
+          eventErrors: (data.data && data.data.trackingPlan) || [],
+          errorDetails: (data.data && data.data.eventsDetail) || [],
+          chartData: (data.data && data.data.chartData) || [],
+          stats: data.data && data.data.stats,
+          pagination: data.data && data.data.pagination
+        });
         setLoading(false);
       })
       .catch(err => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../CSS/RealtimeMonitoring.css";
+import { useCache } from "./CacheContext";
 
 const RealtimeMonitoring = () => {
   const [loading, setLoading] = useState(true);
@@ -7,8 +8,17 @@ const RealtimeMonitoring = () => {
   const [data, setData] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [showLastUpdated, setShowLastUpdated] = useState(false);
+  const { getCacheData, setCacheData } = useCache();
 
   useEffect(() => {
+    const cacheKey = `realtimeData`;
+    const cached = getCacheData(cacheKey);
+    if (cached) {
+      setData(cached.data);
+      setLastUpdated(cached.lastUpdated ? new Date(cached.lastUpdated) : new Date());
+      setLoading(false);
+      return;
+    }
     const fetchData = async () => {
       try {
         const res = await fetch("/api/realtime");
@@ -16,6 +26,7 @@ const RealtimeMonitoring = () => {
         if (!json.success) throw new Error(json.error || "Erreur API");
         setData(json.data);
         setLastUpdated(new Date());
+        setCacheData(cacheKey, { data: json.data, lastUpdated: new Date().toISOString() });
       } catch (err) {
         setError(err.message || "Erreur inconnue");
       } finally {

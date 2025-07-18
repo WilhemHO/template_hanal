@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import DateRangePicker from './DateRangePicker';
 import DateRangeDropdown from './DateRangeDropdown';
+import { useCache } from "./CacheContext";
 
 function MainContent() {
   const [metrics, setMetrics] = useState(null);
@@ -18,8 +19,18 @@ function MainContent() {
     return { start, end };
   });
   const [selectedMood, setSelectedMood] = useState(null);
+  const { getCacheData, setCacheData } = useCache();
 
   useEffect(() => {
+    const cacheKey = `dashboardData_${dateRange.start}_${dateRange.end}`;
+    const cached = getCacheData(cacheKey);
+    if (cached) {
+      setMetrics(cached.metrics);
+      setEventStats(cached.eventStats);
+      setParametersAnalysis(cached.parametersAnalysis);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     fetch(`/api/dashboard?start=${dateRange.start}&end=${dateRange.end}`)
       .then(res => res.json())
@@ -27,6 +38,7 @@ function MainContent() {
         setMetrics(data.metrics);
         setEventStats(data.eventStats);
         setParametersAnalysis(data.parametersAnalysis || []);
+        setCacheData(cacheKey, data);
         setLoading(false);
       })
       .catch(err => {
@@ -222,7 +234,7 @@ function MainContent() {
         .stat-card.info { border-top: 5px solid #817EE1; }
         .trend-indicator.negative {
           background:rgb(184, 12, 12);
-          color:rgb(255, 255, 255);
+          color: #ef4444;
           border-radius: 12px;
           padding: 2px 10px;
           font-size: 0.95rem;
