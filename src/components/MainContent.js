@@ -56,15 +56,13 @@ function MainContent() {
       {/* Header + Date Selector */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '32px 0 0 0' }}>
         <div>
-          <h1 style={{ fontFamily: 'Bebas Neue, cursive', fontSize: '2.2rem', fontWeight: 700, color: '#4c2885', marginBottom: 2 }}>Bienvenue Hamis !</h1>
+          <h1 style={{ fontFamily: 'Bebas Neue, cursive', fontSize: '2.2rem', fontWeight: 700, color: '#4c2885', marginBottom: 2 }}>Bienvenue !</h1>
           <div style={{ color: '#b197d2', fontSize: '1.05rem', fontWeight: 400, marginBottom: 0 }}>Tableau de bord des événements</div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
           
           <DateRangeDropdown value={dateRange} onChange={setDateRange} />
-          <div className="last-update-info" style={{ fontSize: '0.95rem', color: '#b197d2', marginTop: 2, fontWeight: 400 }}>
-            Dernière actualisation : {new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })} (Temps réel)
-          </div>
+          
         </div>
       </div>
 
@@ -84,7 +82,6 @@ function MainContent() {
           <div className="stat-card-title">TAUX D'ÉCHEC</div>
           <div className="stat-card-value">{metrics?.error_rate !== undefined ? metrics.error_rate.toFixed(1) + '%' : '-'}</div>
           <div className="stat-card-sub">
-            <span className="trend-indicator negative">↑ 2,1% vs hier</span>
           </div>
         </div>
         <div className="stat-card info">

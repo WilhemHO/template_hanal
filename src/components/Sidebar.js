@@ -53,7 +53,6 @@ function Sidebar({ darkMode, toggleDarkMode }) {
               }}
             ></div>
             <div className="user-info" style={{ marginLeft: 12 }}>
-              <div className="user-name">Hamis</div>
               <div className="user-role">Admin</div>
             </div>
           </div>

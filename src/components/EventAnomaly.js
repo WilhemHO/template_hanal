@@ -47,11 +47,12 @@ const EventAnomaly = () => {
   const [availableEvents, setAvailableEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState('all');
   const [chartData, setChartData] = useState([]);
+  const [pageSize, setPageSize] = useState(10);
   const { getCacheData, setCacheData } = useCache();
 
   useEffect(() => {
     setLoading(true);
-    const cacheKey = `anomalyData_${page}_${range.start}_${range.end}_${selectedEvent}`;
+    const cacheKey = `anomalyData_${page}_${range.start}_${range.end}_${selectedEvent}_${pageSize}`;
     const cached = getCacheData(cacheKey);
     if (cached) {
       setAnomalyData(cached.anomalyData);
@@ -64,7 +65,7 @@ const EventAnomaly = () => {
     }
     const params = new URLSearchParams({
       page: page.toString(),
-      pageSize: PAGE_SIZE.toString(),
+      pageSize: pageSize.toString(),
       start: range.start,
       end: range.end,
       event: selectedEvent
@@ -90,7 +91,7 @@ const EventAnomaly = () => {
         setError("Erreur lors du chargement des anomalies");
         setLoading(false);
       });
-  }, [page, range, selectedEvent]);
+  }, [page, range, selectedEvent, pageSize]);
 
   if (loading) return <div>Chargement des anomalies...</div>;
   if (error) return <div>{error}</div>;
@@ -248,7 +249,23 @@ const EventAnomaly = () => {
       
       {/* Section Tableau des anomalies */}
       <div className="section">
-        <h2>Détails des anomalies</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <h2 style={{ margin: 0 }}>Détails des anomalies</h2>
+          <div>
+            <label htmlFor="page-size-select" style={{ marginRight: 8, fontWeight: 500 }}>Éléments par page :</label>
+            <select
+              id="page-size-select"
+              value={pageSize}
+              onChange={e => { setPageSize(Number(e.target.value)); setPage(1); }}
+              style={{ padding: '6px 12px', borderRadius: 6, border: '1.5px solid #e5e7eb', fontWeight: 600 }}
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={100}>100</option>
+              <option value={200}>200</option>
+            </select>
+          </div>
+        </div>
         <table className="data-table">
           <thead>
             <tr>

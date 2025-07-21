@@ -179,7 +179,7 @@ const RealtimeMonitoring = () => {
 
       {renderTable(
         "Events Parameters",
-        ["Event Parameter Missing", "% Missing", "Data Quality", "Occurrences"],
+        ["Event Parameter Missing", "%Errors", "Data Quality", "Count"],
         (data.eventParamsStats || []).map((param) => [
           param.param_key,
           `${param.missing_percentage.toFixed(1)}%`,
@@ -190,7 +190,7 @@ const RealtimeMonitoring = () => {
 
       {renderTable(
         "User Parameters",
-        ["Event User Missing", "% Missing", "Data Quality", "Occurrences"],
+        ["Event User Missing", "%Errors", "Data Quality", "Count"],
         (data.userParamsStats || []).map((param) => [
           param.param_key,
           `${param.missing_percentage.toFixed(1)}%`,
@@ -201,10 +201,9 @@ const RealtimeMonitoring = () => {
 
       {renderTable(
         "Item Parameters",
-        ["Item Param", "Missing", "% Missing", "Data Quality", "Occurrences"],
+        ["Item Param", "%Errors", "Data Quality", "Count"],
         (data.itemParamsStats || []).map((param) => [
           param.param_key,
-          param.missing_count,
           `${param.missing_percentage.toFixed(1)}%`,
           getQuality(param.missing_percentage),
           param.total_occurrences.toLocaleString(),
