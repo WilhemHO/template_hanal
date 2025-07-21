@@ -92,8 +92,7 @@ const RealtimeMonitoring = () => {
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <h1 className="dashboard-title" style={{ margin: 0 }}>Realtime Monitoring</h1>
           <button
-            className="time-icon-btn"
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+            className="icon-btn"
             onClick={() => setShowLastUpdated((v) => !v)}
             title="Voir la dernière mise à jour"
           >
