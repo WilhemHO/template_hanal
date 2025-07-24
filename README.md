@@ -1,18 +1,76 @@
-# Getting Started with Create React App
+# Hanalytics v2 – mon-projet v3
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ce projet est une application web développée avec React (Create React App) et un backend Node.js/Express pour récupérer les données sur bigquery.
+Le déploiement principal se fait sur Vercel, où l’application fonctionne directement sans configuration supplémentaire.
 
-## Available Scripts
+## 🚀 Démo en ligne
 
-In the project directory, you can run:
+L’application est accessible et fonctionnelle directement sur Vercel :  
+➡️ [template-hanal-alcp-git-main-wilhemhos-projects.vercel.app](https://template-hanal-alcp-git-main-wilhemhos-projects.vercel.app)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📦 Structure du projet
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- `api/` : Points d’API pour l’application (Node.js/Express)
+- `backend/` : Backend Node.js, routes et services (mais ca ne fonctionne pas, seul le fichier bigquery.js est utile dans le backend)
+- `public/` : Fichiers statiques (favicon, manifest, etc.)
+- `src/` : Code source React (composants, styles, etc.)
 
-npm install react-router-dom
-npm install chart.js react-chartjs-2
+---
+
+## ⚡️ Utilisation
+
+### 1. Version en ligne (recommandée)
+
+Aucune installation requise.  
+Rendez-vous simplement sur :  
+[https://template-hanal-alcp-git-main-wilhemhos-projects.vercel.app](https://template-hanal-alcp-git-main-wilhemhos-projects.vercel.app)
+
+### 2. Version locale (ne fonctionne pas directement)
+
+> ⚠️ L’application ne fonctionne pas en local avec ce dépôt.  
+> Pour une version locale fonctionnelle, veuillez cloner le dépôt suivant :  
+> [https://github.com/WilhemHO/test_projet.git](https://github.com/WilhemHO/test_projet.git)
+
+#### Procédure pour la version locale :
+
+```bash
+git clone https://github.com/WilhemHO/test_projet.git
+cd test_projet
+npm install
+npm start
+
+# Pour démarrer le backend (dans un autre terminal) :
+cd test_projet/backend
+node server.js
+# Server running on http://localhost:4000
+```
+
+L’application frontend sera alors accessible sur [http://localhost:3000](http://localhost:3000).
+Le backend sera accessible sur [http://localhost:4000](http://localhost:4000).
+
+---
+
+## 🛠️ Dépendances principales
+
+- React (Create React App)
+- react-router-dom
+- chart.js, react-chartjs-2
+- Node.js, Express (backend)
+
+---
+
+## 🔗 Connexion à BigQuery
+
+La connexion à BigQuery se fait via le module `@google-cloud/bigquery` dans le fichier `backend/services/bigquery.js`.
+
+- **Sur Vercel** :
+  - La clé de service Google (JSON) doit être fournie dans la variable d’environnement `GOOGLE_APPLICATION_CREDENTIALS_JSON`.
+
+## ℹ️ Remarques
+
+- Le projet actuel sur ce dépôt n’est pas conçu pour fonctionner en local sans adaptation.
+- Pour toute contribution ou installation locale, utilisez le dépôt GitHub mentionné ci-dessus.
+
+> ℹ️ Remarque : Dans le dossier `backend/`, seul le fichier `bigquery.js` est réellement utilisé pour la connexion à BigQuery. Les autres fichiers backend (routes, services, etc.) ne sont pas fonctionnels ou nécessaires dans ce projet.
