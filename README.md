@@ -1,4 +1,4 @@
-# Hanalytics v2 – mon-projet v3
+# template_hanal
 
 Ce projet est une application web développée avec React (Create React App) et un backend Node.js/Express pour récupérer les données sur bigquery.
 Le déploiement principal se fait sur Vercel, où l’application fonctionne directement sans configuration supplémentaire.
