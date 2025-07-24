@@ -68,6 +68,18 @@ La connexion à BigQuery se fait via le module `@google-cloud/bigquery` dans le 
 - **Sur Vercel** :
   - La clé de service Google (JSON) doit être fournie dans la variable d’environnement `GOOGLE_APPLICATION_CREDENTIALS_JSON`.
 
+## 🌱 Variables d'environnement
+
+Pour le bon fonctionnement de la connexion à BigQuery, les variables d'environnement suivantes doivent être définies :
+
+> **À configurer sur Vercel, section Environment Variables du projet.**
+
+- `GOOGLE_CLOUD_PROJECT` : ID de votre projet Google Cloud.
+- `GOOGLE_APPLICATION_CREDENTIALS_JSON` : Contenu du fichier de credentials Google Cloud (format JSON, à copier/coller dans la variable d'environnement).
+- `BIGQUERY_DATASET` : Nom du dataset BigQuery à utiliser pour les requêtes.
+
+> Exemple d'utilisation sur Vercel : ajoutez ces variables dans la configuration du projet (onglet Environment Variables).
+
 ## ℹ️ Remarques
 
 - Le projet actuel sur ce dépôt n’est pas conçu pour fonctionner en local sans adaptation.
